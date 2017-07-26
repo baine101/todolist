@@ -60,6 +60,14 @@ class TasksController extends Controller
 	 */
 	public function store(Request $request){
 
+		$this->validate($request, [
+			'title' => 'required|unique:posts|max:255',
+			'desc' => 'required',
+			'assignee' => 'required',
+			'due' => 'required',
+		]);
+
+
 		// Get post data
 		$request = $request->all();
 
@@ -110,8 +118,8 @@ class TasksController extends Controller
 	 *
 	 * Update the article DB record
 	 *
-	 * @param Article $article
-	 * @param ArticleRequest $request
+	 * @param Task $task
+	 *
 	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
 	 */
 	public function update(Task $task, Request $request)
